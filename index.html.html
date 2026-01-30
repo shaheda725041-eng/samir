@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Sports Pulse | Latest Sports News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a237e;
+            --secondary: #d32f2f;
+            --accent: #ff9800;
+            --light: #f5f5f5;
+            --dark: #212121;
+            --gray: #757575;
+            --light-gray: #e0e0e0;
+            --success: #388e3c;
+            --warning: #f57c00;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to right, var(--primary), #283593);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 0.3rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 180px;
+            padding: 0.3rem;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        /* Main News Section */
+        .main-news {
+            grid-column: 1 / span 1;
+            margin-bottom: 2rem;
+        }
+
+        .featured-article {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .featured-img {
+            height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .featured-content {
+            padding: 2rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .featured-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .meta-info i {
+            margin-right: 0.3rem;
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #283593;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #f57c00;
+        }
+
+        /* News Grid */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .section-title h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-category {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .card-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-column: 2 / span 1;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .widget-title {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+            font-size: 1.2rem;
+        }
+
+        /* Live Scores */
+        .match {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .match:last-child {
+            border-bottom: none;
+        }
+
+        .teams {
+            flex-grow: 1;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .team:last-child {
+            margin-bottom: 0;
+        }
+
+        .team-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            margin-right: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .team-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .score {
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .live-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Top Stories */
+        .top-story {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .top-story:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .story-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .story-content h5 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .story-meta {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Sports Categories */
+        .sports-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .sport-cat {
+            background: var(--light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .sport-cat:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .sport-cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: #bdbdbd;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #424242;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #424242;
+            color: #bdbdbd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                grid-column: 1 / span 1;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                order: 3;
+                margin-top: 1rem;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            nav li {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav a {
+                display: block;
+                padding: 0.8rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .search-box input {
+                width: 140px;
+            }
+            
+            .featured-content h2 {
+                font-size: 1.7rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-right {
+                flex-direction: column-reverse;
+                align-items: flex-end;
+                gap: 0.5rem;
+            }
+            
+            .featured-img {
+                height: 220px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-bullhorn"></i>
+                <h1>Daily Sports <span>Pulse</span></h1>
+            </div>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Football</a></li>
+                    <li><a href="#">Basketball</a></li>
+                    <li><a href="#">Tennis</a></li>
+                    <li><a href="#">Baseball</a></li>
+                    <li><a href="#">MMA</a></li>
+                    <li><a href="#">More</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search news...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Main News Section -->
+        <main class="main-news">
+            <!-- Featured Article -->
+            <article class="featured-article">
+                <div class="featured-img"></div>
+                <div class="featured-content">
+                    <span class="category-tag">Football</span>
+                    <h2>Underdogs Ascend: Hawks Stun League Leaders in Thrilling Finish</h2>
+                    <p>In a result that has sent shockwaves through the league, the Havant Hawks pulled off a miraculous 3-2 victory over top-of-the-table Northgate United. The decider came from 18-year-old academy graduate Leo Chen in the 94th minute.</p>
+                    <div class="meta-info">
+                        <span><i class="far fa-user"></i> Alex Morgan</span>
+                        <span><i class="far fa-clock"></i> 2 hours ago</span>
+                        <span><i class="far fa-comment"></i> 142 comments</span>
+                    </div>
+                    <a href="#" class="btn">Read Full Story</a>
+                </div>
+            </article>
+
+            <!-- Latest News -->
+            <div class="section-title">
+                <h3>Latest News</h3>
+                <a href="#" class="btn btn-accent">View All</a>
+            </div>
+            
+            <div class="news-grid">
+                <!-- News Card 1 -->
+                <article class="news-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content">
+                        <span class="card-category">Basketball</span>
+                        <h4>Aces' Streak Hits 15, Dynasty in the Making?</h4>
+                        <p>The Metro Aces' dominance continues with their 15th consecutive win, tying a franchise record. MVP frontrunner Isabella Vasquez posted another triple-double.</p>
+                        <div class="card-meta">
+                            <span>45 min ago</span>
+                            <span><i class="far fa-eye"></i> 2.4k</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- News Card 2 -->
+                <article class="news-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551958219-acbc608c6377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content">
+                        <span class="card-category">Tennis</span>
+                        <h4>Alcaraz vs Rune: Grand National Tennis Classic Final Preview</h4>
+                        <p>Defending champion Carlos Alcaraz faces rising powerhouse Holger Rune in what promises to be a baseline war at the Grand National Tennis Classic.</p>
+                        <div class="card-meta">
+                            <span>2 hours ago</span>
+                            <span><i class="far fa-eye"></i> 1.8k</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- News Card 3 -->
+                <article class="news-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content">
+                        <span class="card-category">Cycling</span>
+                        <h4>Sienna Roy Completes Historic 'Triple Crown' in Ultra-Cycling</h4>
+                        <p>Local endurance phenom becomes the first person to complete the grueling 'Triple Crown' of ultra-cycling in a single calendar year.</p>
+                        <div class="card-meta">
+                            <span>5 hours ago</span>
+                            <span><i class="far fa-eye"></i> 3.1k</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Live Scores Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Live Scores</h3>
+                <div class="match">
+                    <div class="teams">
+                        <div class="team">
+                            <div class="team-logo">MU</div>
+                            <div class="team-name">Manchester United</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-logo">ARS</div>
+                            <div class="team-name">Arsenal</div>
+                        </div>
+                    </div>
+                    <div class="score">2 - 1</div>
+                    <span class="live-badge">LIVE</span>
+                </div>
+                
+                <div class="match">
+                    <div class="teams">
+                        <div class="team">
+                            <div class="team-logo">LAL</div>
+                            <div class="team-name">Lakers</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-logo">GSW</div>
+                            <div class="team-name">Warriors</div>
+                        </div>
+                    </div>
+                    <div class="score">98 - 102</div>
+                    <span class="live-badge">LIVE</span>
+                </div>
+                
+                <div class="match">
+                    <div class="teams">
+                        <div class="team">
+                            <div class="team-logo">NYY</div>
+                            <div class="team-name">Yankees</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-logo">BOS</div>
+                            <div class="team-name">Red Sox</div>
+                        </div>
+                    </div>
+                    <div class="score">3 - 2</div>
+                    <span class="live-badge">LIVE</span>
+                </div>
+                
+                <a href="#" class="btn" style="width: 100%; text-align: center; margin-top: 1rem;">View All Scores</a>
+            </div>
+            
+            <!-- Top Stories Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Top Stories</h3>
+                <div class="top-story">
+                    <div class="story-img" style="background-image: url('https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="story-content">
+                        <h5>Titans Make Record Offer for Panthers' Playmaker O'Brien</h5>
+                        <div class="story-meta">1 hour ago</div>
+                    </div>
+                </div>
+                
+                <div class="top-story">
+                    <div class="story-img" style="background-image: url('https://images.unsplash.com/photo-1519861531473-920034658307?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="story-content">
+                        <h5>Silverbacks' Star Dele Sidelined for 6-8 Weeks with Hamstring Strain</h5>
+                        <div class="story-meta">3 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="top-story">
+                    <div class="story-img" style="background-image: url('https://images.unsplash.com/photo-1595435934247-5d33b7f92c70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="story-content">
+                        <h5>Heavyweight Unification Bout Set for Sunday Night</h5>
+                        <div class="story-meta">5 hours ago</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sports Categories Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Sports Categories</h3>
+                <div class="sports-categories">
+                    <a href="#" class="sport-cat active">Football</a>
+                    <a href="#" class="sport-cat">Basketball</a>
+                    <a href="#" class="sport-cat">Tennis</a>
+                    <a href="#" class="sport-cat">Baseball</a>
+                    <a href="#" class="sport-cat">MMA</a>
+                    <a href="#" class="sport-cat">Golf</a>
+                    <a href="#" class="sport-cat">Cycling</a>
+                    <a href="#" class="sport-cat">Rugby</a>
+                    <a href="#" class="sport-cat">Cricket</a>
+                    <a href="#" class="sport-cat">Formula 1</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Daily Sports Pulse</h4>
+                <p>Your daily source for the latest sports news, scores, and analysis from around the world.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Live Scores</a></li>
+                    <li><a href="#">Fixtures</a></li>
+                    <li><a href="#">Standings</a></li>
+                    <li><a href="#">Player Stats</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#">Football</a></li>
+                    <li><a href="#">Basketball</a></li>
+                    <li><a href="#">Tennis</a></li>
+                    <li><a href="#">Baseball</a></li>
+                    <li><a href="#">MMA</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Sports Ave, City, ST 12345</li>
+                    <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                    <li><i class="fas fa-envelope"></i> info@dailysportspulse.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 Daily Sports Pulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Live score updates simulation
+        function updateLiveScores() {
+            const scores = document.querySelectorAll('.score');
+            scores.forEach(score => {
+                if(Math.random() > 0.7) { // 30% chance to update
+                    const currentScore = score.textContent.split(' - ');
+                    let homeScore = parseInt(currentScore[0]);
+                    let awayScore = parseInt(currentScore[1]);
+                    
+                    // Randomly increase one of the scores
+                    if(Math.random() > 0.5) {
+                        homeScore += 1;
+                    } else {
+                        awayScore += 1;
+                    }
+                    
+                    score.textContent = `${homeScore} - ${awayScore}`;
+                }
+            });
+        }
+        
+        // Update scores every 30 seconds
+        setInterval(updateLiveScores, 30000);
+        
+        // Category switching
+        const sportCats = document.querySelectorAll('.sport-cat');
+        sportCats.forEach(cat => {
+            cat.addEventListener('click', function(e) {
+                e.preventDefault();
+                sportCats.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real app, this would load content for the selected category
+                console.log(`Loading news for: ${this.textContent}`);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-box input');
+        const searchBtn = document.querySelector('.search-box button');
+        
+        searchBtn.addEventListener('click', () => {
+            if(searchInput.value.trim()) {
+                alert(`Searching for: ${searchInput.value}`);
+                // In a real app, this would trigger a search
+            }
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                if(searchInput.value.trim()) {
+                    alert(`Searching for: ${searchInput.value}`);
+                    // In a real app, this would trigger a search
+                }
+            }
+        });
+    </script>
+</body>
+</html>
